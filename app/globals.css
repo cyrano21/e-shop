@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/public/fonts/Poppins/Poppins-Regular.ttf') format('truetype'),
+    url('/public/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+}
