@@ -131,7 +131,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           toast.error("Oops! Quelque chose s'est mal passé");
           console.log(err);
         });
-  }, []);
+  }, [router]);
 
   const handleDelete = useCallback(async (id: string, images: any[]) => {
     toast("Suppression du produit, veuillez patienter!");
@@ -162,7 +162,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           toast.error("Échec de la suppression du produit");
           console.log(err);
         });
-  }, []);
+  }, [storage, router]);
 
   return (
       <div className="max-w-[1150px] m-auto text-xl">

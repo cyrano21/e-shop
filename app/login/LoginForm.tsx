@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       router.push("/cart");
       router.refresh();
     }
-  }, []);
+  }, [router, currentUser]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
@@ -70,7 +70,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         label="Continue with Google"
         icon={AiOutlineGoogle}
         onClick={() => {
-          signIn("google");
+          signIn("google").then(r =>r);
         }}
       />
       <hr className="bg-slate-300 w-full h-px" />

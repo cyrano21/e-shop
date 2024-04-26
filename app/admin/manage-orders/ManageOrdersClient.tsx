@@ -188,7 +188,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         toast.error("Oops! Quelque chose s'est mal passé");
         console.log(err);
       });
-  }, []);
+  }, [router]);
 
   return (
     <div className="max-w-[1150px] m-auto text-xl">

@@ -1,7 +1,7 @@
 "use client";
 
 import { ImageType } from "@/app/admin/add-products/AddProductForm";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SelectImage from "./SelectImage";
 import Button from "../Button";
 
@@ -31,7 +31,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
   const handleFileChange = useCallback((value: File) => {
     setFile(value);
     addImageToState({ ...item, image: value });
-  }, []);
+  }, [addImageToState, item]);
 
   const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(e.target.checked);
@@ -40,7 +40,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
       setFile(null);
       removeImageFromState(item);
     }
-  }, []);
+  }, [removeImageFromState, item]);
 
   return (
     <div className="grid grid-cols-1 overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2">
