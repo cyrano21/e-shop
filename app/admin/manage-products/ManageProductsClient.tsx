@@ -25,8 +25,8 @@ interface ManageProductsClientProps {
 }
 
 const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
-  products,
-}) => {
+                                                                     products,
+                                                                   }) => {
   const router = useRouter();
   const storage = getStorage(firebaseApp);
   let rows: any = [];
@@ -54,7 +54,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       width: 100,
       renderCell: (params) => {
         return (
-          <div className="font-bold text-slate-800">{params.row.price}</div>
+            <div className="font-bold text-slate-800">{params.row.price}</div>
         );
       },
     },
@@ -66,23 +66,23 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       width: 120,
       renderCell: (params) => {
         return (
-          <div>
-            {params.row.inStock === true ? (
-              <Status
-                text="in stock"
-                icon={MdDone}
-                bg="bg-teal-200"
-                color="text-teal-700"
-              />
-            ) : (
-              <Status
-                text="out of stock"
-                icon={MdClose}
-                bg="bg-rose-200"
-                color="text-rose-700"
-              />
-            )}
-          </div>
+            <div>
+              {params.row.inStock === true ? (
+                  <Status
+                      text="en stock"
+                      icon={MdDone}
+                      bg="bg-teal-200"
+                      color="text-teal-700"
+                  />
+              ) : (
+                  <Status
+                      text="en rupture de stock"
+                      icon={MdClose}
+                      bg="bg-rose-200"
+                      color="text-rose-700"
+                  />
+              )}
+            </div>
         );
       },
     },
@@ -92,26 +92,26 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="flex justify-between gap-4 w-full">
-            <ActionBtn
-              icon={MdCached}
-              onClick={() => {
-                handleToggleStock(params.row.id, params.row.inStock);
-              }}
-            />
-            <ActionBtn
-              icon={MdDelete}
-              onClick={() => {
-                handleDelete(params.row.id, params.row.images).then(r => {  });
-              }}
-            />
-            <ActionBtn
-              icon={MdRemoveRedEye}
-              onClick={() => {
-                router.push(`product/${params.row.id}`);
-              }}
-            />
-          </div>
+            <div className="flex justify-between gap-4 w-full">
+              <ActionBtn
+                  icon={MdCached}
+                  onClick={() => {
+                    handleToggleStock(params.row.id, params.row.inStock);
+                  }}
+              />
+              <ActionBtn
+                  icon={MdDelete}
+                  onClick={() => {
+                    handleDelete(params.row.id, params.row.images).then(r => {  });
+                  }}
+              />
+              <ActionBtn
+                  icon={MdRemoveRedEye}
+                  onClick={() => {
+                    router.push(`product/${params.row.id}`);
+                  }}
+              />
+            </div>
         );
       },
     },
@@ -119,18 +119,18 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
 
   const handleToggleStock = useCallback((id: string, inStock: boolean) => {
     axios
-      .put("/api/product", {
-        id,
-        inStock: !inStock,
-      })
-      .then((res) => {
-        toast.success("Statut du produit modifié");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Oops! Quelque chose s'est mal passé");
-        console.log(err);
-      });
+        .put("/api/product", {
+          id,
+          inStock: !inStock,
+        })
+        .then((res) => {
+          toast.success("Statut du produit modifié");
+          router.refresh();
+        })
+        .catch((err) => {
+          toast.error("Oops! Quelque chose s'est mal passé");
+          console.log(err);
+        });
   }, []);
 
   const handleDelete = useCallback(async (id: string, images: any[]) => {
@@ -153,37 +153,37 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     await handleImageDelete();
 
     axios
-      .delete(`/api/product/${id}`)
-      .then((res) => {
-        toast.success("Produit supprimé");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Échec de la suppression du produit");
-        console.log(err);
-      });
+        .delete(`/api/product/${id}`)
+        .then((res) => {
+          toast.success("Produit supprimé");
+          router.refresh();
+        })
+        .catch((err) => {
+          toast.error("Échec de la suppression du produit");
+          console.log(err);
+        });
   }, []);
 
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
-      <div className="mb-4 mt-8">
-        <Heading title="Manage Products" center />
+      <div className="max-w-[1150px] m-auto text-xl">
+        <div className="mb-4 mt-8">
+          <Heading title="Gérer les produits" center />
+        </div>
+        <div style={{ height: 600, width: "100%" }}>
+          <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 9 },
+                },
+              }}
+              pageSizeOptions={[9, 20]}
+              checkboxSelection
+              disableRowSelectionOnClick
+          />
+        </div>
       </div>
-      <div style={{ height: 600, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 9 },
-            },
-          }}
-          pageSizeOptions={[9, 20]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </div>
-    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import {
   CartProductType,
   SelectedImgType,
 } from "@/app/product/[productId]/ProductDetails";
+import React from "react";
 
 interface SetColorProps {
   images: SelectedImgType[];
@@ -19,7 +20,7 @@ const SetColor: React.FC<SetColorProps> = ({
   return (
     <div>
       <div className="flex gap-4 items-center">
-        <span className="font-semibold">COLOR:</span>
+        <span className="font-semibold">COULEUR:</span>
         <div className="flex gap-1">
           {images.map((image) => {
             return (

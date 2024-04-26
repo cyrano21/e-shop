@@ -32,9 +32,9 @@ export async function POST(request: Request) {
   const orderData = {
     user: { connect: { id: currentUser.id } },
     amount: total,
-    currency: "usd",
-    status: "pending",
-    deliveryStatus: "pending",
+    currency: "eur",
+    status: "en attente",
+    deliveryStatus: "en attente",
     paymentIntentId: payment_intent_id,
     products: items,
   };
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     // create the intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
-      currency: "usd",
+      currency: "eur",
       automatic_payment_methods: { enabled: true },
     });
 

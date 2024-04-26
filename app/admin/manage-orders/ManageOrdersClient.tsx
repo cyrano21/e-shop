@@ -68,14 +68,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           <div>
             {params.row.paymentStatus === "en attente" ? (
               <Status
-                text="pending"
+                text="en attente"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.paymentStatus === "complet" ? (
               <Status
-                text="completed"
+                text="complet"
                 icon={MdDone}
                 bg="bg-green-200"
                 color="text-green-700"
@@ -96,21 +96,21 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           <div>
             {params.row.deliveryStatus === "en attente" ? (
               <Status
-                text="pending"
+                text="en attente"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.deliveryStatus === "dispatched" ? (
               <Status
-                text="dispatched"
+                text="expédié"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
               />
             ) : params.row.deliveryStatus === "livré" ? (
               <Status
-                text="delivered"
+                text="livré"
                 icon={MdDone}
                 bg="bg-green-200"
                 color="text-green-700"

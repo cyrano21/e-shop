@@ -80,16 +80,16 @@ const AddProductForm = () => {
 
     if (!data.category) {
       setIsLoading(false);
-      return toast.error("Category is not selected!");
+      return toast.error("La catégorie n'est pas sélectionnée!");
     }
 
     if (!data.images || data.images.length === 0) {
       setIsLoading(false);
-      return toast.error("No selected image!");
+      return toast.error("Aucune image sélectionnée!");
     }
 
     const handleImageUploads = async () => {
-      toast("Creating product, please wait..");
+      toast("Création du produit, veuillez patienter..");
       try {
         for (const item of data.images) {
           if (item.image) {
@@ -104,13 +104,13 @@ const AddProductForm = () => {
                 (snapshot) => {
                   const progress =
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  console.log("Upload is " + progress + "% done");
+                  console.log("Le téléchargement est " + progress + "% fait");
                   switch (snapshot.state) {
                     case "paused":
-                      console.log("Upload is paused");
+                      console.log("Le téléchargement est suspendu");
                       break;
                     case "running":
-                      console.log("Upload is running");
+                      console.log("Le téléchargement est en cours");
                       break;
                   }
                 },
@@ -125,11 +125,11 @@ const AddProductForm = () => {
                         ...item,
                         image: downloadURL,
                       });
-                      console.log("File available at", downloadURL);
+                      console.log("Fichier disponible sur", downloadURL);
                       resolve();
                     })
                     .catch((error) => {
-                      console.log("Error getting the download URL", error);
+                      console.log("Erreur lors de l'obtention de l'URL de téléchargement", error);
                       reject(error);
                     });
                 }
@@ -139,8 +139,8 @@ const AddProductForm = () => {
         }
       } catch (error) {
         setIsLoading(false);
-        console.log("Error handling image uploads", error);
-        return toast.error("Error handling image uploads");
+        console.log("Erreur lors de la gestion des téléchargements d'images", error);
+        return toast.error("Erreur lors de la gestion des téléchargements d'images");
       }
     };
 
@@ -150,12 +150,12 @@ const AddProductForm = () => {
     axios
       .post("/api/product", productData)
       .then(() => {
-        toast.success("Product created");
+        toast.success("Produit créé");
         setIsProductCreated(true);
         router.refresh();
       })
       .catch((error) => {
-        toast.error("Something went wrong when saving product to db");
+        toast.error("Une erreur s'est produite lors de l'enregistrement du produit dans la base de données");
       })
       .finally(() => {
         setIsLoading(false);

@@ -40,7 +40,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
 
   return (
     <div>
-      <Heading title="Shopping Cart" center />
+      <Heading title="Panier" center />
       <div
         className="grid
       grid-cols-5
@@ -51,9 +51,9 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
       mt-8
       "
       >
-        <div className="col-span-2 justify-self-start">PRODUCT</div>
-        <div className="justify-self-center">PRICE</div>
-        <div className="justify-self-center">QUANTITY</div>
+        <div className="col-span-2 justify-self-start">PRODUIT</div>
+        <div className="justify-self-center">PRIX</div>
+        <div className="justify-self-center">QUANTITÉ</div>
         <div className="justify-self-end">TOTAL</div>
       </div>
       <div>
@@ -65,7 +65,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
       <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
         <div className="w-[90px]">
           <Button
-            label="Clear Cart"
+            label="Vider le panier"
             onClick={() => {
               handleClearCart();
             }}
@@ -79,10 +79,10 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
             <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className="text-slate-500">
-            Taxes and shipping calculate at checkout
+            Les taxes et les frais d&lsquo; expédition sont calculés à la caisse
           </p>
           <Button
-            label={currentUser ? "Checkout" : "Login To Checkout"}
+            label={currentUser ? "Payer" : "Connectez-vous pour payer"}
             outline={currentUser ? false : true}
             onClick={() => {
               currentUser ? router.push("/checkout") : router.push("/login");
@@ -96,7 +96,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           "
           >
             <MdArrowBack />
-            <span>Continue Shopping</span>
+            <span>Continuer vos achats</span>
           </Link>
         </div>
       </div>

@@ -8,7 +8,7 @@ import {
   PaymentElement,
   AddressElement,
 } from "@stripe/react-stripe-js";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
@@ -55,7 +55,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
       })
       .then((result) => {
         if (!result.error) {
-          toast.success("Checkout Success");
+          toast.success("Réussite du paiement");
 
           handleClearCart();
           handleSetPaymentSuccess(true);
@@ -69,22 +69,22 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   return (
     <form onSubmit={handleSubmit} id="payment-form">
       <div className="mb-6">
-        <Heading title="Enter your details to complete checkout" />
+        <Heading title="Entrez vos coordonnées pour finaliser la commande" />
       </div>
-      <h2 className="font-semibold mb-2">Address Information</h2>
-      <AddressElement
+'      <h2 className="font-semibold mb-2">Informations sur l&lsquo; adresse</h2>
+'      <AddressElement
         options={{
           mode: "shipping",
-          allowedCountries: ["US", "KE"],
+          allowedCountries: ["FR", "KE"],
         }}
       />
-      <h2 className="font-semibold mt-4 mb-2">Payment Information</h2>
+      <h2 className="font-semibold mt-4 mb-2">Informations de paiement</h2>
       <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
       <div className="py-4 text-center text-slate-700 text-xl font-bold">
         Total: {formattedPrice}
       </div>
       <Button
-        label={isLoading ? "Processing" : "Pay now"}
+        label={isLoading ? "Traitement" : "Payez maintenant"}
         disabled={isLoading || !stripe || !elements}
         onClick={() => {}}
       />

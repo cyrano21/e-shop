@@ -7,6 +7,7 @@ import { truncateText } from "@/utils/truncateText";
 import Image from "next/image";
 import SetQuatity from "../components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
+import React from "react";
 
 interface ItemContentProps {
   item: CartProductType;
@@ -59,7 +60,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
               className="text-slate-500 underline"
               onClick={() => handleRemoveProductFromCart(item)}
             >
-              Remove
+              Retirer
             </button>
           </div>
         </div>

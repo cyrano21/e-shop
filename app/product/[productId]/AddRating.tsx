@@ -8,7 +8,7 @@ import { Rating } from "@mui/material";
 import { Order, Product, Review } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -40,29 +40,30 @@ const AddRating:React.FC<AddRatingProps> = ({product, user}) => {
         })
     }
 
-   const onSubmit:SubmitHandler<FieldValues> = async(data) =>{
-    setIsLoading(true);
-    if(data.rating === 0) {
-        setIsLoading(false)
-        return toast.error('No rating selected')
+    const onSubmit:SubmitHandler<FieldValues> = async(data) =>{
+        setIsLoading(true);
+        if(data.rating === 0) {
+            setIsLoading(false)
+            return toast.error('Aucune note sélectionnée')
+        }
+        const ratingData = {...data, userId: user?.id, product: product};
+
+
+        axios.post('/api/rating', ratingData).then(() =>{
+            toast.success('Note soumise');
+            router.refresh();
+            reset();
+        }).catch((error) =>{
+            console.log(error)
+            toast.error("Quelque chose s'est mal passé")
+        }).finally(() =>{
+            setIsLoading(false)
+        })
     }
-    const ratingData = {...data, userId: user?.id, product: product}
 
-    axios.post('/api/rating', ratingData).then(() =>{
-        toast.success('Rating submitted');
-        router.refresh();
-        reset();
-    }).catch((error) =>{
-        console.log(error)
-        toast.error('Something went wrong')
-    }).finally(() =>{
-        setIsLoading(false)
-    })
-   }
+    if(!user || !product) return null;
 
-   if(!user || !product) return null;
-
-   const deliveredOrder = user?.orders.some(order => order.products.find(item => item.id === product.id) && order.deliveryStatus === 'delivered')
+    const deliveredOrder = user?.orders.some(order => order.products.find(item => item.id === product.id) && order.deliveryStatus === 'livré')
 
     const userReview = product?.reviews.find(((review: Review) =>{
         return review.userId === user.id
@@ -71,20 +72,20 @@ const AddRating:React.FC<AddRatingProps> = ({product, user}) => {
     if(userReview || !deliveredOrder) return null
 
     return ( <div className="flex flex-col gap-2 max-w-[500px]">
-        <Heading title='Rate this product'/>
+        <Heading title='Évaluez ce produit'/>
         <Rating onChange={(event, newValue) =>{
-            setCustomValue('rating', newValue)
+            setCustomValue('notation', newValue)
         }}/>
         <Input
-        id='comment'
-        label="Comment"
-        disabled = {isLoading}
-        register={register}
-        errors={errors}
-        required
+            id='comment'
+            label="Commentaires"
+            disabled = {isLoading}
+            register={register}
+            errors={errors}
+            required
         />
-        <Button label={isLoading ? "Loading" : 'Rate Product'} onClick={handleSubmit(onSubmit)}/>
+        <Button label={isLoading ? "Chargement" : 'Évaluer le produit'} onClick={handleSubmit(onSubmit)}/>
     </div> );
 }
- 
+
 export default AddRating;

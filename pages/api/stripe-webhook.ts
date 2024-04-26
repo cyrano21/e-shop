@@ -21,7 +21,7 @@ export default async function handler(
   const sig = req.headers["stripe-signature"];
 
   if (!sig) {
-    return res.status(400).send("Missing the stripe signature");
+    return res.status(400).send("Il manque la signature rayée");
   }
 
   let event: Stripe.Event;
@@ -33,22 +33,22 @@ export default async function handler(
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err) {
-    return res.status(400).send("Webhook error" + err);
+    return res.status(400).send("Erreur de webhook" + err);
   }
 
   switch (event.type) {
-    case "charge.succeeded":
+    case "charge.réussie":
       const charge: any = event.data.object as Stripe.Charge;
 
       if (typeof charge.payment_intent === "string") {
         await prisma?.order.update({
           where: { paymentIntentId: charge.payment_intent },
-          data: { status: "complete", address: charge.shipping?.address },
+          data: { status: "complet", address: charge.shipping?.address },
         });
       }
       break;
     default:
-      console.log("Unhandled event type:" + event.type);
+      console.log("Type d'événement non géré:" + event.type);
   }
 
   res.json({ received: true });
