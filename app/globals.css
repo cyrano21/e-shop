@@ -13,3 +13,17 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+
+.selected-image-border {
+    border-color: #0056b3; /* Blue for selection */
+    border-width: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.hover-image-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-image-effect:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

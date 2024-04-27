@@ -1,77 +1,64 @@
 "use client";
-
 import { formatPrice } from "@/utils/formatPrice";
 import { truncateText } from "@/utils/truncateText";
 import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ProductCardProps {
-  data: any;  // Assurez-vous que data.images contient un tableau d'images.
+  data: any; // Assurez-vous que data.images contient un tableau d'images.
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const router = useRouter();
-  const [hoverImage, setHoverImage] = useState(data.images[0].image);
+  const [hoverImageIndex, setHoverImageIndex] = useState(0);
 
-  const productRating =
-      data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
-      data.reviews.length;
+  useEffect(() => {
+    // Interval pour changer d'image toutes les 3 secondes
+    const imageInterval = setInterval(() => {
+      setHoverImageIndex(prevIndex => {
+        const nextIndex = (prevIndex + 1) % data.images.length;
+        handleImageChange(nextIndex); // Gérer le changement d'image
+        return nextIndex;
+      });
+    }, 3000);
 
-  const handleMouseEnter = () => {
-    // Change to the next image or reset to first if it's the last one
-    const currentIndex = data.images.findIndex((img: { image: any; }) => img.image === hoverImage);
-    const nextIndex = (currentIndex + 1) % data.images.length;  // Loop back to the first image
-    setHoverImage(data.images[nextIndex].image);
+    return () => clearInterval(imageInterval);
+  }, [data.images.length]);
+
+  const handleImageChange = (index) => {
+    // Nettoyer le timer précédent avant de réinitialiser
+    clearTimeout(window.redirectTimer);
+    // Réinitialiser le timer pour la navigation chaque fois qu'une nouvelle image est affichée
+    window.redirectTimer = setTimeout(() => {
+      router.push(`/product/${data.id}`);
+    }, 4000);
   };
 
-  const handleMouseLeave = () => {
-    // Reset to the default image when not hovering
-    setHoverImage(data.images[0].image);
-  };
+  useEffect(() => {
+    // Nettoyer le timer global lors du démontage pour éviter les déclenchements erronés
+    return () => clearTimeout(window.redirectTimer);
+  }, []);
 
   return (
       <div
           onClick={() => router.push(`/product/${data.id}`)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="col-span-1
-    cursor-pointer
-    border-[1.2px]
-    border-slate-200
-    bg-slate-50
-    rounded-sm
-    p-2
-    transition
-    hover:scale-105
-    text-center
-    text-sm
-    "
+          className="col-span-1 cursor-pointer border bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105 text-center text-sm"
       >
-        <div
-            className="
-      flex
-      flex-col
-      items-center
-      w-full
-      gap-1
-      "
-        >
-          <div className="aspect-square overflow-hidden relative w-full">
+        <div className="flex flex-col items-center w-full gap-4">
+          <div className="aspect-square overflow-hidden relative w-full rounded-lg">
             <Image
                 fill
-                src={hoverImage}
+                src={data.images[hoverImageIndex].image}
                 alt={data.name}
                 className="w-full h-full object-contain"
             />
           </div>
-          <div className="mt-4">{truncateText(data.name)}</div>
-          <div>
-            <Rating value={productRating} readOnly />
-          </div>
-          <div>{data.reviews.length} Notes</div>
-          <div className="font-semibold">{formatPrice(data.price)}</div>
+          <div className="mt-2 font-semibold">{truncateText(data.name, 50)}</div>
+          <Rating value={data.reviews.reduce((acc, item) => item.rating + acc, 0) / data.reviews.length} readOnly />
+          <div className="text-gray-500">{data.reviews.length} Notes</div>
+          <div className="font-bold">{formatPrice(data.price)}</div>
         </div>
       </div>
   );
