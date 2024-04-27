@@ -5,24 +5,37 @@ import { truncateText } from "@/utils/truncateText";
 import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 interface ProductCardProps {
-  data: any;
+  data: any;  // Assurez-vous que data.images contient un tableau d'images.
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const router = useRouter();
+  const [hoverImage, setHoverImage] = useState(data.images[0].image);
 
   const productRating =
       data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
       data.reviews.length;
 
-  console.log(productRating);
+  const handleMouseEnter = () => {
+    // Change to the next image or reset to first if it's the last one
+    const currentIndex = data.images.findIndex((img: { image: any; }) => img.image === hoverImage);
+    const nextIndex = (currentIndex + 1) % data.images.length;  // Loop back to the first image
+    setHoverImage(data.images[nextIndex].image);
+  };
+
+  const handleMouseLeave = () => {
+    // Reset to the default image when not hovering
+    setHoverImage(data.images[0].image);
+  };
 
   return (
       <div
           onClick={() => router.push(`/product/${data.id}`)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           className="col-span-1
     cursor-pointer
     border-[1.2px]
@@ -48,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <div className="aspect-square overflow-hidden relative w-full">
             <Image
                 fill
-                src={data.images[0].image}
+                src={hoverImage}
                 alt={data.name}
                 className="w-full h-full object-contain"
             />
