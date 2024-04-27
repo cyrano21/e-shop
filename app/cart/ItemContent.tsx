@@ -64,7 +64,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           </div>
         </Link>
         <div className="flex flex-col justify-between">
-          <Link href={`/product/${item.id}`}>{truncateText(item.name)}</Link>
+          <Link href={`/product/${item.id}`}>{truncateText(item.name, 50)}</Link>
           <div>{item.selectedImg.color}</div>
           <div className="w-[70px]">
             <button

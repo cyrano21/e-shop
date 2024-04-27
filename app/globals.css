@@ -15,7 +15,7 @@ body {
 }
 
 .selected-image-border {
-    border-color: #0056b3; /* Blue for selection */
+    border-color: #b3bdc7; /* Blue for selection */
     border-width: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
