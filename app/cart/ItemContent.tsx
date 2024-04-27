@@ -13,6 +13,13 @@ interface ItemContentProps {
   item: CartProductType;
 }
 
+function normalizeImageUrl(url: string) {
+  if (url.includes('redirected.example.com')) {
+    return url.replace('redirected.example.com', 'cdn.example2.com');
+  }
+  return url;
+}
+
 const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
   const {
     handleRemoveProductFromCart,
@@ -45,10 +52,14 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
         <Link href={`/product/${item.id}`}>
           <div className="relative w-[70px] aspect-square">
             <Image
-              src={item.selectedImg.image}
+                src={normalizeImageUrl(item.selectedImg.image)}
               alt={item.name}
+                width={500}
+                height={300}
+                layout="responsive"
               fill
               className="object-contain"
+              placeholder="blur"
             />
           </div>
         </Link>
