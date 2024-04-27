@@ -7,8 +7,15 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 interface ProductCardProps {
-  data: any; // Assurez-vous que data.images contient un tableau d'images.
+  data: any;
 }
+
+declare global {
+  interface Window {
+    redirectTimer?: ReturnType<typeof setTimeout>; // Optionnel et utilise le type de retour de setTimeout
+  }
+}
+
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const router = useRouter();
@@ -27,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     return () => clearInterval(imageInterval);
   }, [data.images.length]);
 
-  const handleImageChange = (index) => {
+  const handleImageChange = (index: number) => {
     // Nettoyer le timer précédent avant de réinitialiser
     clearTimeout(window.redirectTimer);
     // Réinitialiser le timer pour la navigation chaque fois qu'une nouvelle image est affichée
@@ -38,7 +45,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
   useEffect(() => {
     // Nettoyer le timer global lors du démontage pour éviter les déclenchements erronés
-    return () => clearTimeout(window.redirectTimer);
+    return () => {
+      if (window.redirectTimer) {
+        clearTimeout(window.redirectTimer);
+      }
+    };
   }, []);
 
   return (
@@ -56,7 +67,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             />
           </div>
           <div className="mt-2 font-semibold">{truncateText(data.name, 50)}</div>
-          <Rating value={data.reviews.reduce((acc, item) => item.rating + acc, 0) / data.reviews.length} readOnly />
+          <Rating value={data.reviews.reduce((acc: number, item: { rating: number }) => item.rating + acc, 0) / data.reviews.length} readOnly />
           <div className="text-gray-500">{data.reviews.length} Notes</div>
           <div className="font-bold">{formatPrice(data.price)}</div>
         </div>
