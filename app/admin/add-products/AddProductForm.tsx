@@ -59,6 +59,14 @@ const AddProductForm = () => {
     },
   });
 
+  const setCustomValue = useCallback((id: string, value: any) => {
+    setValue(id, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  }, [setValue]);
+
   useEffect(() => {
     setCustomValue("images", images);
   }, [images, setCustomValue]);
@@ -169,13 +177,13 @@ const AddProductForm = () => {
 
   const category = watch("category");
 
-  const setCustomValue = (id: string, value: any) => {
+  const setCustomValue = useCallback((id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
     });
-  };
+  }, [setValue]);
 
   const addImageToState = useCallback((value: ImageType) => {
     setImages((prev) => {
