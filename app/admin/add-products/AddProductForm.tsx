@@ -61,7 +61,7 @@ const AddProductForm = () => {
 
   useEffect(() => {
     setCustomValue("images", images);
-  }, [images]);
+  }, [images, setCustomValue]);
 
   const resetForm = useCallback(() => {
     reset();
@@ -74,7 +74,7 @@ const AddProductForm = () => {
       setImages(null);
       setIsProductCreated(false);
     }
-  }, [isProductCreated, resetForm]);
+  }, [isProductCreated, resetForm, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log("Product Data", data);
