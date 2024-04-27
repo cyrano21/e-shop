@@ -34,20 +34,20 @@ export async function POST(request: Request) {
     amount: total,
     currency: "eur",
     status: "en attente",
-    deliveryStatus: "en attente",
+    deliveryStatus: "pending",
     paymentIntentId: payment_intent_id,
     products: items,
   };
 
   if (payment_intent_id) {
     const current_intent = await stripe.paymentIntents.retrieve(
-      payment_intent_id
+        payment_intent_id
     );
 
     if (current_intent) {
       const updated_intent = await stripe.paymentIntents.update(
-        payment_intent_id,
-        { amount: total }
+          payment_intent_id,
+          { amount: total }
       );
 
       // update the order
@@ -88,6 +88,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ paymentIntent });
   }
 
-   // Return a default response (e.g., an error response) if none of the conditions are met
-   return NextResponse.error();
+  // Return a default response (e.g., an error response) if none of the conditions are met
+  return NextResponse.error();
 }

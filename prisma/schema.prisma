@@ -43,15 +43,25 @@ model User {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   price       Float
   brand       String
   category    String
   inStock     Boolean
-  images      Json // Utilisez le type Json pour stocker des tableaux d'objets si les relations posent problème
+  images      Image[]
   reviews     Review[]
+  orderItems  OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @db.ObjectId
+  quantity  Int
+  price     Float
 }
 
 model Review {
@@ -66,14 +76,9 @@ model Review {
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-type ProductImage {
-  color     String
-  colorCode String
-  image     String
-}
-
 model Order {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  user            User              @relation(fields: [userId], references: [id])
   userId          String            @db.ObjectId
   amount          Float
   currency        String
@@ -99,7 +104,6 @@ type CartProductType {
 }
 
 type Image {
-  productId String
   color     String
   colorCode String
   image     String
