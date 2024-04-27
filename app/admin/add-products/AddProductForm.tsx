@@ -59,17 +59,10 @@ const AddProductForm = () => {
     },
   });
 
-  const setCustomValue = useCallback((id: string, value: any) => {
-    setValue(id, value, {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    });
-  }, [setValue]);
 
   useEffect(() => {
     setCustomValue("images", images);
-  }, [images, setCustomValue]);
+  }, [images]);
 
   const resetForm = useCallback(() => {
     reset();
