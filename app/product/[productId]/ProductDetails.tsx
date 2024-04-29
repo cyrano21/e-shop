@@ -100,12 +100,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
 
   return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
-        <ProductImage
-            cartProduct={cartProduct}
-            product={product}
-            handleColorSelect={handleColorSelect}
-        />
+      <div className="page-container">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
+          <div className="product-image-container">
+            <ProductImage
+                cartProduct={cartProduct}
+                product={product}
+                handleColorSelect={handleColorSelect}
+            />
+          </div>
         <div className="flex flex-col gap-1 text-slate-500 text-sm">
           <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
           <div className="flex items-center gap-2">
@@ -164,6 +167,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               </>
           )}
         </div>
+      </div>
       </div>
   );
 };
