@@ -1,10 +1,11 @@
 'use client'
+
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const SearchBar = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const {
         register,
@@ -32,13 +33,13 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center w-full sm:w-56 md:w-64 lg:w-96">
             <input
                 {...register('searchTerm')}
                 autoComplete="off"
                 type="text"
                 placeholder="Explorer E~Shop"
-                className="input-style p-2 border border-gray-300 rounded-l-md w-80"
+                className="input-style flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none"
             />
             <button onClick={handleSubmit(onSubmit)} className="bg-slate-700 hover:opacity-80 text-white p-2 rounded-r-md">
                 Rechercher
@@ -48,3 +49,4 @@ const SearchBar = () => {
 }
 
 export default SearchBar;
+

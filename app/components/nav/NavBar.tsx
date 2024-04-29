@@ -40,7 +40,7 @@ const NavBar = async () => {
             >
               E-Shop
             </Link>
-            <div className="hidden md:block"><SearchBar/></div>
+            <div className="md:block"><SearchBar/></div>
             <div className="flex items-center gap-8 md:gap-12">
               <CartCount />
               <UserMenu currentUser={currentUser} />
