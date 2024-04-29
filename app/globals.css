@@ -111,3 +111,23 @@ body {
     transition: all 0.3s ease-out;
     color: #007bff;
 }
+
+/* Styles CSS pour améliorer le contraste du texte sur fond violet */
+.list-rating-container {
+    color: #f8f9fa; /* Blanc légèrement grisé pour améliorer la lisibilité */
+}
+
+.list-rating-title {
+    color: #ffffff; /* Blanc pur pour les titres pour un maximum de contraste */
+}
+
+.list-rating-subtext {
+    color: #e0e0e0; /* Gris très clair pour les sous-textes */
+}
+
+.list-rating-review {
+    border-bottom: 1px solid #eee; /* Séparateur plus clair pour diviser les avis */
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
