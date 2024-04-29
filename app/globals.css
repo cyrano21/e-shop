@@ -13,7 +13,6 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Assurez-vous que le body prend toute la hauteur de la fenêtre */
     /*  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
      background: linear-gradient(to right, #ff7e5f 0%, #feb47b 100%);
      background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
@@ -22,10 +21,6 @@ body {
      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
      color: #fff; /* Changez la couleur du texte pour une meilleure lisibilité */
     font-family: 'Poppins', sans-serif;
-    display: flex;
-    transition: background-color 0.3s;
-    justify-content: center;
-
 }
 
 .selected-image-border, .hover-image-effect:hover, .input-style:valid {

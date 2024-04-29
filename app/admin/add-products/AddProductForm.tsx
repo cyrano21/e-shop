@@ -62,7 +62,8 @@ const AddProductForm = () => {
 
   useEffect(() => {
     setCustomValue("images", images);
-  }, [images]);
+  }, [images]); // Include setCustomValue in the dependency array
+
 
   const resetForm = useCallback(() => {
     reset();
