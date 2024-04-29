@@ -11,8 +11,23 @@
     font-display: swap;
 }
 body {
-    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Assurez-vous que le body prend toute la hauteur de la fenêtre */
+    background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    background: linear-gradient(to right, #ff7e5f 0%, #feb47b 100%);
+    background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    background: linear-gradient(to right, #f12711 0%, #f5af19 100%);
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: #fff; /* Changez la couleur du texte pour une meilleure lisibilité */
+    font-family: 'Poppins', sans-serif; /* Utilisation de la police Poppins */
+  display: flex;
+    justify-content: center;
+    transition: background-color 0.3s;
+
 }
+
 
 .selected-image-border {
     border-color: #b3bdc7; /* Blue for selection */
