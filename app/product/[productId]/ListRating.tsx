@@ -15,7 +15,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
 
     return (
         <div className="list-rating-container">
-            <Heading title="Évaluation du produit" className="list-rating-title" />
+            <Heading title="Évaluation du produit" />
             <div className="text-sm mt-2">
                 {product.reviews.map((review: any) => (
                     <div key={review.id} className="list-rating-review max-w-[300px]">
