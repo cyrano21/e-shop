@@ -18,22 +18,28 @@ const Categories = () => {
     const pathname = usePathname();
     const isMainPage = pathname === '/';
 
-    const handleCategorySelect = (category: { label: any; }) => {
-        let currentQuery = {};
-        if (params) {
-            currentQuery = queryString.parse(params.toString());
+    const handleCategorySelect = (category: { label: string; }) => {
+        if (category.label === 'All') {
+            // This assumes your default route fetches all products when no category parameter is present
+            router.push('/');
+        } else {
+            let currentQuery = {};
+            if (params) {
+                currentQuery = queryString.parse(params.toString());
+            }
+            const updatedQuery = {
+                ...currentQuery,
+                category: category.label
+            };
+            const url = queryString.stringifyUrl({
+                url: '/',
+                query: updatedQuery
+            }, { skipNull: true });
+            router.push(url);
         }
-        const updatedQuery = {
-            ...currentQuery,
-            category: category.label
-        };
-        const url = queryString.stringifyUrl({
-            url: '/',
-            query: updatedQuery
-        }, { skipNull: true });
-        router.push(url);
         setMenuOpen(false); // Close the menu after selection
     };
+
 
     if (!isMainPage) return null;
 
@@ -52,7 +58,7 @@ const Categories = () => {
                             {categories.map((item) => (
                                 <div
                                     key={item.label}
-                                    onClick={() => router.push(`/?category=${item.label}`)}
+                                    onClick={() => handleCategorySelect(item)}
                                     className={`p-2 hover:bg-gray-100 cursor-pointer
                                     ${categoryQuery === item.label ? 'text-blue-700 font-bold' : 'text-gray-900'}
                                     `}
