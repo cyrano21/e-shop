@@ -8,6 +8,7 @@ import ItemContent from "./ItemContent";
 import { formatPrice } from "@/utils/formatPrice";
 import { SafeUser } from "@/types";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 interface CartClientProps {
   currentUser: SafeUser | null;
@@ -31,7 +32,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           "
           >
             <MdArrowBack />
-            <span>Start Shopping</span>
+            <span>Commencer vos achats</span>
           </Link>
         </div>
       </div>

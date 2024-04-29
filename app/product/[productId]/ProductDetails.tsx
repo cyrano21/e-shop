@@ -97,8 +97,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     });
   }, [cartProduct.quantity]);
 
+
+
   return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
         <ProductImage
             cartProduct={cartProduct}
             product={product}
@@ -107,12 +109,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <div className="flex flex-col gap-1 text-slate-500 text-sm">
           <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
           <div className="flex items-center gap-2">
-            <Rating value={productRating} readOnly />
+            <Rating value={productRating} readOnly/>
             <div>{product.reviews.length} votes</div>
           </div>
-          <Horizontal />
+          <Horizontal/>
           <div className="text-justify">{product.description}</div>
-          <Horizontal />
+          <Horizontal/>
           <div>
             <span className="font-semibold">CATÉGORIE:</span> {product.category}
           </div>
@@ -122,11 +124,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
             {product.inStock ? "En stock" : "En rupture de stock"}
           </div>
-          <Horizontal />
+          <Horizontal/>
           {isProductInCart ? (
               <>
                 <p className="mb-2 text-slate-500 flex items-center gap-1">
-                  <MdCheckCircle className="text-teal-400" size={20} />
+                  <MdCheckCircle className="text-teal-400" size={20}/>
                   <span>Produit ajouté au panier</span>
                 </p>
                 <div className="max-w-[300px]">
@@ -146,13 +148,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                     images={product.images}
                     handleColorSelect={handleColorSelect}
                 />
-                <Horizontal />
+                <Horizontal/>
                 <SetQuatity
                     cartProduct={cartProduct}
                     handleQtyIncrease={handleQtyIncrease}
                     handleQtyDecrease={handleQtyDecrease}
                 />
-                <Horizontal />
+                <Horizontal/>
                 <div className="max-w-[300px]">
                   <Button
                       label="Ajouter au panier"
